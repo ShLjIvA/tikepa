@@ -14,18 +14,16 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
-                        <li class="nav-item @if(request()->routeIs('home')) active @endif"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-                        <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                               aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a></li>
-                                <li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
-                                <li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
-                                <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
-                                <li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
-                            </ul>
-                        </li>
+                        @foreach ($links as $link)
+                            @if(!$link->admin)
+                                <li class="nav-item @if(request()->routeIs($link->name)) active @endif"><a class="nav-link" href="{{ route($link->name) }}">{{$link->title}}</a></li>
+                            @else
+                                @if(Session::has('user') && Session::get('user')->admin)
+                                    <li class="nav-item @if(request()->routeIs($link->name)) active @endif"><a class="nav-link" href="{{ route($link->name) }}">{{$link->title}}</a></li>
+                                @endif
+                            @endif
+                        @endforeach
+
                         <li class="nav-item submenu dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">Blog</a>
@@ -43,7 +41,7 @@
                                 <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/card">Contact</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item @if(request()->routeIs('card')) active @endif"><a href="{{ route('card') }}" class="cart"><span class="ti-bag"></span></a></li>
