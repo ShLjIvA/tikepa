@@ -943,8 +943,9 @@
                 success: function(data) {
                     alert("Dodato")
                 },
-                error:function() {
-                    alert("Došlo je do greške.")
+                error:function(xhr) {
+                    // alert("Došlo je do greške.")
+                    alert(xhr.responseText)
                 }
             })
         }
