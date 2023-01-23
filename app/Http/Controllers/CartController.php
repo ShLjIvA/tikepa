@@ -22,7 +22,7 @@ class CartController extends Controller
         } else {
             $cart = [];
             $productId = $request->productId;
-            dd($productId);
+            //dd($productId);
             $key = strval($productId);
             $cart[$key] = 1;
             $request->session()->put("cart", $cart);
