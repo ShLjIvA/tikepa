@@ -9,8 +9,10 @@
     <meta name="description" content="">
     <!-- Meta Keyword -->
     <meta name="keywords" content="">
-    <!-- meta character set -->
+    <!-- Meta character set -->
     <meta charset="UTF-8">
+    <!-- Meta csrf token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Site Title -->
     <title>@yield('title')</title>
     <!--
