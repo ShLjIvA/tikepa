@@ -14,5 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $articles = \Illuminate\Support\Facades\DB::table('articles')->get();
+//    dd($articles);
+    return view('pages.home');
+})->name('home');
+
+Route::get('/login', function (){
+    return view('pages.login');
+})->name('login');
+
+Route::get('/card', function (){
+    return view('pages.card');
+})->name('card');
+
+Route::post("/add-to-cart", [\App\Http\Controllers\CartController::class, "add"]);
+
