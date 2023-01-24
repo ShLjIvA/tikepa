@@ -14,7 +14,7 @@ class Article extends Model
             ->join('categories', 'articles.category_id', '=', 'categories.id')
             ->join('genders', 'articles.gender_id', '=', 'genders.id')
             ->join('brands', 'articles.brand_id', '=', 'brands.id')
-            ->select('articles.*', 'categories.name as categoryName', 'genders.*', 'brands.name as brandName');
+            ->select('articles.*', 'categories.name as categoryName', 'categories.id as categoryId', 'genders.gender as gender', 'brands.name as brandName');
 
         if(property_exists($search, 'id')) {
             $query->where('articles.id', $search->id);
