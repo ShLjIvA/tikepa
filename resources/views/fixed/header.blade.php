@@ -23,26 +23,13 @@
                                 @endif
                             @endif
                         @endforeach
-
-                        <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                               aria-expanded="false">Blog</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                                <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item submenu dropdown @if(request()->routeIs('login')) active @endif">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                               aria-expanded="false">Pages</a>
-                            <ul class="dropdown-menu">
+                            @if(session()->has('user'))
+                                <li class="nav-item"><a class="nav-link" href="{{ route('doLogout') }}">Logout</a></li>
+                            @else
                                 <li class="nav-item @if(request()->routeIs('login')) active @endif"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-                                <li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-                                <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                            @endif
                     </ul>
+
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item @if(request()->routeIs('cart')) active @endif"><a href="{{ route('cart') }}" class="cart"><span class="ti-bag"></span></a></li>
                         <li class="nav-item">

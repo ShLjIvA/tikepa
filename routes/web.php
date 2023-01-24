@@ -31,10 +31,11 @@ Route::get('/cart', function (){
     return view('pages.cart');
 })->name('cart');
 
+Route::get('/contact', [\App\Http\Controllers\ContactController::class, 'index'])->name('contact');
 
-Route::get('/shop', function () {
-    echo "Nema shopa jbg";
-})->name('shop');
+
+Route::get('/shop', [\App\Http\Controllers\ShopController::class, 'index'])->name('shop');
+
 
 Route::get('/contact', function () {
     echo "Nema shopa jbg";
