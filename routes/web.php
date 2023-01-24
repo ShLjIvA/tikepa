@@ -36,6 +36,10 @@ Route::get('/shop', function () {
     echo "Nema shopa jbg";
 })->name('shop');
 
+Route::get('/contact', function () {
+    echo "Nema shopa jbg";
+})->name('contact');
+
 Route::middleware('isadmin')->group(function(){
     /* PAGES */
     Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin');

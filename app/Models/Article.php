@@ -31,6 +31,14 @@ class Article extends Model
             $query->where('genders.id', $search->genderId);
         }
 
+        if(property_exists($search, 'coming')) {
+            $query->where('articles.coming', $search->coming);
+        }
+
+        if(property_exists($search, 'sale')) {
+            $query->whereNotNull('articles.sale_price');
+        }
+
         $query->orderBy('articles.id', 'desc');
 
         if(property_exists($search, 'limit')) {

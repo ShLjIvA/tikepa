@@ -17,6 +17,14 @@ class HomeController extends Controller
 
         $latest = $model->search($search);
 
-        return view('pages.home', ['latest' => $latest]);
+        $searchComing = (object)[];
+        $searchComing->coming = 1;
+        $coming = $model->search($searchComing);
+
+        $searchSale = (object)[];
+        $searchSale->sale = 1;
+        $sale = $model->search($searchSale);
+
+        return view('pages.home', ['latest' => $latest, 'coming' => $coming, 'sale' => $sale]);
     }
 }
