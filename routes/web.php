@@ -19,9 +19,13 @@ Route::get('/', function () {
     return view('pages.home');
 })->name('home');
 
-Route::get('/login', function (){
-    return view('pages.login');
-})->name('login');
+Route::get('/login', [\App\Http\Controllers\AuthController::class, 'loginForm'])->name('login');
+Route::post('/doLogin', [\App\Http\Controllers\AuthController::class, 'doLogin'])->name('doLogin');
+Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'doLogout'])->name('doLogout');
+
+Route::get('/admin', function (){
+    return view('pages.card');
+})->name('admin-panel');
 
 Route::get('/card', function (){
     return view('pages.card');
@@ -31,20 +35,20 @@ Route::get('/shop', function () {
     echo "Nema shopa jbg";
 })->name('shop');
 
-Route::get('/login', function () {
-    var_dump(Session::get('user'));
-    $user = new StdClass();
-    $user->id = 1;
-    $user->admin = 1;
-    $user->name = 'Steva';
-    Session::put('user', $user);
-    echo "upisan session";
-})->name('login');
+//Route::get('/login', function () {
+//    var_dump(Session::get('user'));
+//    $user = new StdClass();
+//    $user->id = 1;
+//    $user->admin = 1;
+//    $user->name = 'Steva';
+//    Session::put('user', $user);
+//    echo "upisan session";
+//})->name('login');
 
-Route::get('/logout', function () {
-    Session::forget('user');
-    echo "zaboravljen user";
-})->name('logout');
+//Route::get('/logout', function () {
+//    Session::forget('user');
+//    echo "zaboravljen user";
+//})->name('logout');
 
 Route::post("/add-to-cart", [\App\Http\Controllers\CartController::class, "add"]);
 

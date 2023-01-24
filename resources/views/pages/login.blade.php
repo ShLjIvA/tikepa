@@ -20,24 +20,30 @@
             <div class="col-lg-6">
                 <div class="login_form_inner">
                     <h3>Log in to enter</h3>
-                    <form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                    <form class="row login_form" action="{{route('doLogin')}}" method="post" id="contactForm" novalidate="novalidate">
+                        @csrf
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+                            <input type="email" class="form-control" id="emailLogin" name="emailLogin" placeholder="Email" value="{{old('emailLogin')}}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+                            @if($errors->has('emailLogin'))
+                                <span class="error">* {{$errors->first("emailLogin")}}</span>
+                            @endif
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            <input type="password" class="form-control" id="passwordLogin" name="passwordLogin" placeholder="Password" value="{{old('passwordLogin')}}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            @if($errors->has('passwordLogin'))
+                                <span class="error">* {{$errors->first("passwordLogin")}}</span>
+                            @endif
                         </div>
                         <div class="col-md-12 form-group">
-                            <div class="creat_account">
-                                <input type="checkbox" id="f-option2" name="selector">
-                                <label for="f-option2">Keep me logged in</label>
-                            </div>
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <button type="submit" value="submit" class="primary-btn">Log In</button>
-                            <a href="#">Forgot Password?</a>
+                            <button type="submit" value="submit" name="btnLogin" id="btnLogin" class="primary-btn">Log In</button>
                         </div>
                     </form>
+                    @if(session('error-msg'))
+                        <p class="success my-2">{{ session('error-msg') }}</p>
+                    @endif
+                    @if(session('success-msg'))
+                        <p class="success my-2">{{ session('success-msg') }}</p>
+                    @endif
                 </div>
             </div>
         </div>
