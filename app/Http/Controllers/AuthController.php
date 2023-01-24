@@ -31,8 +31,8 @@ class AuthController extends Controller
             $request->session()->put('user', $user);
             $request->session()->put('cartItems', []);
 //            dd($request->session()->get('user')->email);
-            if($request->session()->get('user')->admin == 1){
-                return redirect()->route('admin-panel');
+            if($request->session()->get('user')->admin){
+                return redirect()->route('admin');
             }
             else {
                 return redirect()->back()->with('success-msg', "You've successfully logged in to your account.");
