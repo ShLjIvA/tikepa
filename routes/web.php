@@ -13,11 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $articles = \Illuminate\Support\Facades\DB::table('articles')->get();
-//    dd($articles);
-    return view('pages.home');
-})->name('home');
+Route::get("/", [\App\Http\Controllers\HomeController::class, 'index'])->name("home");
 
 Route::get('/login', function (){
     return view('pages.login');
