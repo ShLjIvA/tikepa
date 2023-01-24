@@ -2,6 +2,11 @@
 
 @section('title') Login @endsection
 
+@section('banner-h1') Login @endsection
+@section('banner-link')
+    <a href="{{ route('cart') }}">Login</a>
+@endsection
+
 @section('content')
 <!--================Login Box Area =================-->
 <section class="login_box_area section_gap">
@@ -13,7 +18,7 @@
                     <div class="hover">
                         <h4>New to our website?</h4>
                         <p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-                        <a class="primary-btn" href="registration.html">Create an Account</a>
+                        <a class="primary-btn" href="{{ route('register') }}">Create an Account</a>
                     </div>
                 </div>
             </div>

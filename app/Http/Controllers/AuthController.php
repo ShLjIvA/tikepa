@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class AuthController extends Controller
 {
     // Form
-    public function loginForm(){
+    public function index(){
         return view('pages.login');
     }
     // Log in
