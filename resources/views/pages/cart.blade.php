@@ -1,6 +1,11 @@
 @extends('layouts.layout')
 
-@section('title') Card @endsection
+@section('title') Cart @endsection
+
+@section('banner-h1') Cart @endsection
+@section('banner-link')
+    <a href="{{ route('cart') }}">Cart</a>
+@endsection
 
 @section('content')
     <!--================Cart Area =================-->
