@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-
-class Link extends Model
+class Brand extends Model
 {
 
     public function search($search) {
-        $query = DB::table('links');
+        $query = DB::table('brands');
 
         if(property_exists($search, 'id')) {
             $query->where('id', $search->id);
@@ -28,8 +27,8 @@ class Link extends Model
             $query->skip($search->skip);
         }
 
-        $links = $query->get();
-        return $links;
+        $brands = $query->get();
+        return $brands;
 
     }
 
