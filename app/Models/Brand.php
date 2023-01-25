@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class Brand extends Model
 {
+    public function articles(){
+        return $this->hasMany(Article::class);
+    }
 
     public function search($search) {
         $query = DB::table('brands');
