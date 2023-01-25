@@ -82,7 +82,7 @@ $(document).ready(function(){
       nav:false,
       dots:true
     });
-    
+
     /*=================================
     Javascript for exclusive area carousel
     ==================================*/
@@ -112,8 +112,8 @@ $(document).ready(function(){
     .click(function(event) {
       // On-page links
       if (
-        location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
-        && 
+        location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+        &&
         location.hostname == this.hostname
       ) {
         // Figure out element to scroll to
@@ -180,7 +180,7 @@ $(document).ready(function(){
 
     $(document).ready(function() {
         $('#mc_embed_signup').find('form').ajaxChimp();
-    });   
+    });
 
 
 
@@ -249,20 +249,20 @@ $(document).ready(function(){
     $(function(){
 
         if(document.getElementById("price-range")){
-        
+
         var nonLinearSlider = document.getElementById('price-range');
-        
+
         noUiSlider.create(nonLinearSlider, {
             connect: true,
             behaviour: 'tap',
-            start: [ 500, 4000 ],
+            start: [ 100, 300 ],
             range: {
                 // Starting at 500, step the value by 500,
                 // until 4000 is reached. From there, step by 1000.
                 'min': [ 0 ],
-                '10%': [ 500, 500 ],
-                '50%': [ 4000, 1000 ],
-                'max': [ 10000 ]
+                '10%': [ 1, 1 ],
+                '50%': [ 250, 1 ],
+                'max': [ 500 ]
             }
         });
 
@@ -282,7 +282,7 @@ $(document).ready(function(){
 
     });
 
-    
+
     //-------- Have Cupon Button Text Toggle Change -------//
 
     $('.have-btn').on('click', function(e){
@@ -298,7 +298,7 @@ $(document).ready(function(){
         $('.load-product').fadeIn('slow');
         $(this).fadeOut();
     });
-    
+
 
 
 
@@ -560,6 +560,6 @@ $(document).ready(function(){
       }
 
 
-  
+
 
  });
