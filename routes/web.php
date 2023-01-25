@@ -35,6 +35,8 @@ Route::get('/contact', [\App\Http\Controllers\ContactController::class, 'index']
 
 Route::get('/shop', [\App\Http\Controllers\ShopController::class, 'index'])->name('shop');
 
+Route::get('/shop/{id}', [\App\Http\Controllers\ShopController::class, 'show'])->name('product');
+
 Route::middleware('isadmin')->group(function(){
     /* PAGES */
     Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin');
