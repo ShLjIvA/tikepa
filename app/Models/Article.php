@@ -8,6 +8,18 @@ use Illuminate\Support\Facades\DB;
 
 class Article extends Model
 {
+    public function sizes()
+    {
+        return $this->belongsToMany(Size::class);
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+
+    public function gallery(){
+        return $this->hasMany(ArticleGallery::class);
+    }
 
     public function search($search) {
         $query = DB::table('articles')
