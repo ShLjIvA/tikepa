@@ -33,13 +33,7 @@ Route::get('/cart', function (){
 
 Route::get('/contact', [\App\Http\Controllers\ContactController::class, 'index'])->name('contact');
 
-
 Route::get('/shop', [\App\Http\Controllers\ShopController::class, 'index'])->name('shop');
-
-
-Route::get('/contact', function () {
-    echo "Nema shopa jbg";
-})->name('contact');
 
 Route::middleware('isadmin')->group(function(){
     /* PAGES */
