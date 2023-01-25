@@ -4,7 +4,7 @@
 
 @section('content')
 <div style="margin: 20px">
-<button type="button" class="btn btn-primary">Add new Category</button>
+<button type="button" class="btn btn-primary">Add new Gender</button>
 </div>
 <div class="container-fluid">
     <div class="row">
@@ -19,10 +19,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($categories as $category)
+                    @foreach ($genders as $gender)
                     <tr>
-                    <th scope="row">{{$category->id}}</th>
-                    <td>{{ $category->name }}</td>
+                    <th scope="row">{{$gender->id}}</th>
+                    <td>{{ $gender->gender }}</td>
                     <td><button type="button" class="btn btn-success">Edit</button></td>
                     <td><button type="button" class="btn btn-danger">Delete</button></td>
                     </tr>
@@ -38,9 +38,9 @@
     @php
         for($i = 1; $i <= $pagination; $i++) {
             if($page == $i) {
-                echo '<li class="page-item active"><a class="page-link" href="/admin/categories?page='.$i.'">'.$i.'</a></li>';
+                echo '<li class="page-item active"><a class="page-link" href="/admin/genders?page='.$i.'">'.$i.'</a></li>';
             } else {
-                echo '<li class="page-item"><a class="page-link" href="/admin/categories?page='.$i.'">'.$i.'</a></li>';
+                echo '<li class="page-item"><a class="page-link" href="/admin/genders?page='.$i.'">'.$i.'</a></li>';
             }
         }
 

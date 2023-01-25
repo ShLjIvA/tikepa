@@ -43,10 +43,11 @@ Route::get('/contact', function () {
 
 Route::middleware('isadmin')->group(function(){
     /* PAGES */
-    Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+    Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'articles'])->name('articles');
     Route::get('/admin/articles', [\App\Http\Controllers\AdminController::class, 'articles'])->name('articles');
     Route::get('/admin/brands', [\App\Http\Controllers\AdminController::class, 'brands'])->name('brands');
     Route::get('/admin/categories', [\App\Http\Controllers\AdminController::class, 'categories'])->name('categories');
+    Route::get('/admin/genders', [\App\Http\Controllers\AdminController::class, 'genders'])->name('genders');
     Route::get('/admin/links', [\App\Http\Controllers\AdminController::class, 'links'])->name('links');
     Route::get('/admin/orders', [\App\Http\Controllers\AdminController::class, 'orders'])->name('orders');
     Route::get('/admin/users', [\App\Http\Controllers\AdminController::class, 'users'])->name('users');
