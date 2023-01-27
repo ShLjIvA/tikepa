@@ -7,6 +7,10 @@
     <a href="{{ route('shop') }}">Shop</a>
 @endsection
 
+@section('additionalScripts')
+    <script src="{{asset('js/shop.js')}}"></script>
+@endsection
+
 @section('content')
     <!--================Shop Area =================-->
     <div class="container">
@@ -31,7 +35,7 @@
                         <form action="#">
                             <ul>
                                 @foreach($brands as $brand)
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="{{ strtolower($brand->name) }}" name="{{ strtolower($brand->name) }}"><label for="{{ strtolower($brand->name) }}">{{ $brand->name }}<span> ({{count($brand->articles)}}) </span></label></li>
+                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="{{ strtolower($brand->name) }}" name="brands"><label for="{{ strtolower($brand->name) }}">{{ $brand->name }}<span> ({{count($brand->articles)}}) </span></label></li>
                                 @endforeach
                             </ul>
                         </form>
@@ -66,57 +70,59 @@
                 <!-- Start Filter Bar -->
                 <div class="filter-bar d-flex flex-wrap align-items-center">
                     <div class="sorting">
-                        <select>
-                            <option value="1">Newly Added Products</option>
-                            <option value="1">Price from low to high</option>
-                            <option value="1">Price from high to low</option>
+                        <select id="sort" onchange="sortUpdate()">
+                            <option value="new">Newly Added Products</option>
+                            <option value="low">Price from low to high</option>
+                            <option value="high">Price from high to low</option>
                         </select>
                     </div>
                     <div class="sorting mr-auto">
 
                     </div>
                     <div class="pagination">
-                        <a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-                        <a href="#">6</a>
-                        <a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                        {{ $articles->links() }}
                     </div>
                 </div>
                 <!-- End Filter Bar -->
                 <!-- Start Best Seller -->
                 <section class="lattest-product-area pb-40 category-list">
-                    <div class="row">
-                        @foreach($articles as $article)
-                            <!-- single product -->
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <img class="img-fluid" src="{{ asset($article->image) }}" alt="{{ $article->name }}">
-                                        <div class="product-details">
-                                            <h6>{{ $article->name }}</h6>
-                                            <div class="price">
-                                                <h6>${{ $article->price }}</h6>
-                                                @if($article->sale_price)
-                                                <h6 class="l-through">${{ $article->sale_price }}</h6>
-                                                @endif
-                                            </div>
-                                            <div class="prd-bottom">
+                    <div class="row" id="articles">
+                        @if(count($articles))
+                            @foreach($articles as $article)
+                                <!-- single product -->
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="single-product">
+                                            <img class="img-fluid" src="{{ asset($article->image) }}" alt="{{ $article->name }}">
+                                            <div class="product-details">
+                                                <h6>{{ strtoupper($article->name) }}</h6>
+                                                <div class="price">
+                                                    @if($article->sale_price)
+                                                    <h6 class="text-danger">${{ $article->sale_price }}</h6>
+                                                    <h6 class="l-through">${{ $article->price }}</h6>
+                                                    @else
+                                                    <h6>${{ $article->price }}</h6>
+                                                    @endif
+                                                </div>
+                                                <div class="prd-bottom">
 
-                                                <a href="" class="social-info">
-                                                    <span class="ti-bag"></span>
-                                                    <p class="hover-text">add to bag</p>
-                                                </a>
-                                                <a href="{{ route('product', ['id' => $article->id]) }}" class="social-info">
-                                                    <span class="lnr lnr-move"></span>
-                                                    <p class="hover-text">view more</p>
-                                                </a>
+                                                    <a href="" class="social-info">
+                                                        <span class="ti-bag"></span>
+                                                        <p class="hover-text">add to bag</p>
+                                                    </a>
+                                                    <a href="{{ route('product', ['id' => $article->id]) }}" class="social-info">
+                                                        <span class="lnr lnr-move"></span>
+                                                        <p class="hover-text">view more</p>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            @else
+                            <div class="container-fluid text-center mt-5 mb-5">
+                                <h4>There aren't any products with criterium you selected</h4>
+                            </div>
+                            @endif
                     </div>
                 </section>
                 <!-- End Best Seller -->
@@ -126,13 +132,7 @@
 
                     </div>
                     <div class="pagination">
-                        <a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-                        <a href="#">6</a>
-                        <a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                        {{ $articles->links() }}
                     </div>
                 </div>
                 <!-- End Filter Bar -->

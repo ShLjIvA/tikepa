@@ -19,6 +19,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('articles/{id}', function($id) {
+Route::post('/articles', [\App\Http\Controllers\ShopController::class, 'searchApi']);
+
+//
+//Route::post('/articles', function(Request $request) {
+//    return $request->all();
+//});
+
+
+Route::get('/articles/{id}', function($id) {
     return Article::find($id);
 });
+
+
