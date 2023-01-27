@@ -22,6 +22,7 @@ class Article extends Model
     }
 
     public function search($search) {
+
         $query = DB::table('articles')
             ->join('categories', 'articles.category_id', '=', 'categories.id')
             ->join('genders', 'articles.gender_id', '=', 'genders.id')
@@ -51,19 +52,32 @@ class Article extends Model
             $query->whereNotNull('articles.sale_price');
         }
 
-        $query->orderBy('articles.id', 'desc');
+        if(property_exists($search, 'sort')) {
 
-        if(property_exists($search, 'limit')) {
-            $query->limit($search->limit);
-        } else {
-            $query->limit(8);
+            if($search->sort == 'new')
+                $query->orderBy('articles.id', 'desc');
+            if($search->sort == 'low') {
+                $query->orderBy('articles.current_price');
+            }
+            if($search->sort == 'high'){
+                $query->orderBy('articles.current_price', "desc");
+            }
         }
+        else{
+            $query->orderBy('articles.id', 'desc');
+        }
+
+//        if(property_exists($search, 'limit')) {
+//            $query->limit($search->limit);
+//        } else {
+//            $query->limit(9);
+//        }
 
         if(property_exists($search, 'skip')) {
             $query->skip($search->skip);
         }
 
-        $articles = $query->get();
+        $articles = $query->paginate(6);
         return $articles;
 
 
