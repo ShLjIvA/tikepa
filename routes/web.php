@@ -41,13 +41,32 @@ Route::post('/shop/search', [\App\Http\Controllers\ShopController::class, 'searc
 
 Route::middleware('isadmin')->group(function(){
     /* PAGES */
-    Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'articles'])->name('articles');
+    Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'articles'])->name('admin');
+
     Route::get('/admin/articles', [\App\Http\Controllers\AdminController::class, 'articles'])->name('articles');
+
     Route::get('/admin/brands', [\App\Http\Controllers\AdminController::class, 'brands'])->name('brands');
+    Route::post('admin/brands/{id}', [\App\Http\Controllers\AdminController::class, 'updateBrand'])->name('brands.update');
+    Route::post('admin/brands/', [\App\Http\Controllers\AdminController::class, 'addBrand'])->name('brands.add');
+    Route::get('admin/brands/delete/{id}', [\App\Http\Controllers\AdminController::class, 'deleteBrand'])->name('brands.delete');
+
     Route::get('/admin/categories', [\App\Http\Controllers\AdminController::class, 'categories'])->name('categories');
+    Route::post('/admin/categories/{id}', [\App\Http\Controllers\AdminController::class, 'updateCategory'])->name('categories.update');
+    Route::post('/admin/categories', [\App\Http\Controllers\AdminController::class, 'addCategory'])->name('categories.add');
+    Route::get('/admin/categories/delete/{id}' ,[\App\Http\Controllers\AdminController::class, 'deleteCategory'])->name('categories.delete');
+
     Route::get('/admin/genders', [\App\Http\Controllers\AdminController::class, 'genders'])->name('genders');
+    Route::post('/admin/genders/{id}', [\App\Http\Controllers\AdminController::class, 'updateGender'])->name('genders.update');
+    Route::post('/admin/genders', [\App\Http\Controllers\AdminController::class, 'addGender'])->name('genders.add');
+    Route::get('/admin/genders/delete/{id}', [\App\Http\Controllers\AdminController::class, 'deleteGender'])->name('genders.delete');
+
     Route::get('/admin/links', [\App\Http\Controllers\AdminController::class, 'links'])->name('links');
+    Route::post('/admin/links/{id}', [\App\Http\Controllers\AdminController::class, 'updateLink'])->name('links.update');
+    Route::post('/admin/links', [\App\Http\Controllers\AdminController::class, 'addLink'])->name('links.add');
+    Route::get('/admin/links/delete/{id}', [\App\Http\Controllers\AdminController::class, 'deleteLink'])->name('links.delete');
+
     Route::get('/admin/orders', [\App\Http\Controllers\AdminController::class, 'orders'])->name('orders');
+
     Route::get('/admin/users', [\App\Http\Controllers\AdminController::class, 'users'])->name('users');
 });
 

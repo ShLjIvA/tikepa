@@ -67,6 +67,39 @@ class AdminController extends Controller
 
     }
 
+    public function updateBrand(Request $request, $id) {
+        $name = $request->input('brand_name');
+
+        $brand = Brand::find($id);
+        $brand->name = $name ? $name : $brand->name;
+        $brand->save();
+
+        return redirect()->route('brands');
+    }
+
+    public function addBrand(Request $request) {
+        $name = $request->input('brand_name');
+
+        if(!$name) {
+            return redirect()->route('brands');        
+        }
+
+        $brand = new Brand();
+        $brand->name = $name;
+        $brand->save();
+
+        return redirect()->route('brands');
+    }
+
+    public function deleteBrand(Request $request, $id) {
+
+        $brand = Brand::find($id);
+        $brand->forceDelete();
+
+        return redirect()->route('brands');
+
+    }
+
     public function categories(Request $request) {
         $count = Category::count();
 
@@ -89,6 +122,39 @@ class AdminController extends Controller
         $categories = $model->search($search);
         
         return view('admin.categories', ['categories' => $categories, 'pagination' => $pagination, 'page' => $page]);
+    }
+
+    public function updateCategory(Request $request, $id) {
+        $name = $request->input('category_name');
+
+        $category = Category::find($id);
+        $category->name = $name ? $name : $category->name;
+        $category->save();
+
+        return redirect()->route('categories');
+    }
+
+    public function addCategory(Request $request) {
+        $name = $request->input('category_name');
+
+        if(!$name) {
+            return redirect()->route('categories');
+        }
+
+        $category = new Category();
+        $category->name = $name;
+        $category->save();
+
+        return redirect()->route('categories');
+    }
+
+    public function deleteCategory(Request $request, $id) {
+
+        $category = Category::find($id);
+        $category->forceDelete();
+
+        return redirect()->route('categories');
+
     }
 
     public function genders(Request $request) {
@@ -115,6 +181,38 @@ class AdminController extends Controller
         return view('admin.genders', ['genders' => $genders, 'pagination' => $pagination, 'page' => $page]);
     }
 
+    public function updateGender(Request $request, $id) {
+        $name = $request->input('gender_name');
+
+        $gender = Gender::find($id);
+        $gender->gender = $name ? $name : $gender->gender;
+        $gender->save();
+
+        return redirect()->route('genders');
+    }
+
+    public function addGender(Request $request) {
+        $name = $request->input('gender_name');
+
+        if(!$name) {
+            return redirect()->route('genders');
+        }
+
+        $gender = new Gender();
+        $gender->gender = $name;
+        $gender->save();
+
+    }
+
+    public function deleteGender(Request $request, $id) {
+
+        $gender = Gender::find($id);
+        $gender->forceDelete();
+
+        return redirect()->route('genders');
+
+    }
+
     public function links(Request $request) {
         $count = Link::count();
 
@@ -137,6 +235,49 @@ class AdminController extends Controller
         $links = $model->search($search);
         
         return view('admin.links', ['links' => $links, 'pagination' => $pagination, 'page' => $page]);
+    }
+
+    public function updateLink(Request $request, $id) {
+        $name = $request->input('link_name');
+        $title = $request->input('title');
+        $admin = $request->input('admin') ? 1 : 0;
+
+        $link = Link::find($id);
+        $link->title = $title ? $title : $link->title;
+        $link->name = $name ? $name : $link->name;
+        $link->admin = $admin;
+        $link->save();
+
+        return redirect()->route('links');
+    }
+
+    public function addLink(Request $request) {
+        $name = $request->input('link_name');
+        $title = $request->input('title');
+        $admin = $request->input('admin') ? 1 : 0;
+        if(!$name || !$title) {
+            return redirect()->route('links');
+        }
+
+        $link = new Link();
+        $link->name = $name;
+        $link->title = $title;
+        $link->admin = $admin;
+
+
+        $link->save();
+
+        return redirect()->route('links');
+
+    }
+
+    public function deleteLink(Request $request, $id) {
+
+        $link = Link::find($id);
+        $link->forceDelete();
+
+        return redirect()->route('links');
+
     }
 
     public function orders() {
