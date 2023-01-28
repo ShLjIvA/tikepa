@@ -13,8 +13,6 @@
 
 @section('content')
 <!--================Shop Area =================-->
-<div id="lower" style="display: none">{{$lower}}</div>
-<div id="upper" style="display: none">{{$upper}}</div>
 <div class="container">
     <div class="row">
         <div class="col-xl-3 col-lg-4 col-md-5">
@@ -79,7 +77,8 @@
                     </select>
                 </div>
                 <div class="sorting mr-auto">
-
+                    <div id="lower" style="display: none">@if(isset($lower)){{$lower}}@else 69 @endif</div>
+                    <div id="upper" style="display: none">@if(isset($upper)){{$upper}}@else 329 @endif</div>
                 </div>
                 <div class="pagination">
                     {{ $articles->links() }}

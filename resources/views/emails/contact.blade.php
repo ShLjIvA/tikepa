@@ -1,4 +1,4 @@
-<h2>Hey, It's me {{ $data->name }}</h2>
+<h2>We received your message to {{ $data->name }}</h2>
 <br>
 
 <strong>User details: </strong><br>
@@ -7,4 +7,4 @@
 <strong>Subject: </strong>{{ $data->subject }} <br>
 <strong>Message: </strong>{{ $data->user_query }} <br><br>
 
-Thank you
+Thank you, we will contact you soon.
