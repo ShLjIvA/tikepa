@@ -15,6 +15,15 @@
                  data-mlat="40.701083" data-mlon="-74.1522848">
             </div>
             <div class="row">
+                <div class="col-lg-12">
+                    @if(Session::has('success'))
+                        <div class="alert alert-success">
+                            {{Session::get('success')}}
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-3">
                     <div class="contact_info">
                         <div class="info_item">
@@ -35,21 +44,36 @@
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                    <form class="row contact_form" method="POST" action="{{ route('contact.store') }}" id="contactUSForm" novalidate="novalidate">
+                        @csrf
                         <div class="col-md-6">
+                            <h4>Contact support</h4>
+
                             <div class="form-group">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" value="{{ old('name') }}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'">
+                                @if ($errors->has('name'))
+                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                @endif
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address" value="{{ old('email') }}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
+                                @if ($errors->has('email'))
+                                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                                @endif
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'">
+                                <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter Subject" value="{{ old('subject') }}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'">
+                                @if ($errors->has('subject'))
+                                    <span class="text-danger">{{ $errors->first('subject') }}</span>
+                                @endif
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mt-auto">
                             <div class="form-group">
-                                <textarea class="form-control" name="message" id="message" rows="1" placeholder="Enter Message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'"></textarea>
+                                <textarea class="form-control" name="message" id="message" rows="1" placeholder="Enter Message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'">{{ old('message') }}</textarea>
+                                @if ($errors->has('message'))
+                                    <span class="text-danger">{{ $errors->first('message') }}</span>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-12 text-right">
