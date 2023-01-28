@@ -53,50 +53,47 @@ function priceUpdate(){
     fetchProducts();
 }
 
-// function paginationChange(response) {
-//     let html =
-//         `
-//
-//         `
-//     let divs = document.getElementsByClassName('pagination')
-//     for (const div of divs) {
-//
-//     }
-// }
-
 function fetchProducts(){
     $.ajax({
         url: 'api/articles',
         method: 'post',
         data: query,
         success(response){
-            console.log(response)
-            let html = "";
-            let div = document.getElementById('articles');
+            console.log(response.links)
+            articleChange(response)
+            paginationChange(response.links)
+        },
+        error: function (e){
+            console.log(e)
+        }
+    })
+}
 
-            if (response.data && response.data.length) {
-                for (const article of response.data) {
-                    html += `
+function articleChange(response) {
+    let html = "";
+    let div = document.getElementById('articles');
+
+    if (response.data && response.data.length) {
+        for (const article of response.data) {
+            html += `
             <div class="col-lg-4 col-md-6">
                 <div class="single-product">
-                    <img class="img-fluid" src="${
-                        article.image
-                    }" alt="${article.name}">
+                    <img class="img-fluid" src="${article.image}" alt="${article.name}">
                     <div class="product-details">
                         <h6>${article.name.toUpperCase()}</h6>
                         <div class="price">
                             `;
-                    if (article.sale_price) {
-                        html += `
+            if (article.sale_price) {
+                html += `
                                 <h6 class="text-danger">$${article.sale_price}</h6>
                                 <h6 class="l-through">$${article.price}</h6>
                                 `;
-                    } else {
-                        html += `
+            } else {
+                html += `
                                 <h6>$${article.price}</h6>
                                 `;
-                    }
-                    html += `
+            }
+            html += `
                         </div>
                         <div class="prd-bottom">
 
@@ -111,20 +108,44 @@ function fetchProducts(){
                         </div>
                     </div>
                 </div>
-            </div>
-        `;
-                }
-            } else {
-                html = `<div class="container-fluid text-center mt-5 mb-5">
+            </div>`;
+        }
+    } else {
+        html = `<div class="container-fluid text-center mt-5 mb-5">
                 <h4>There aren't any products with criterium you selected</h4>
             </div>`;
-            }
-            div.innerHTML = html;
-        },
-        error: function (e){
-            console.log(e)
+    }
+    div.innerHTML = html;
+}
+
+function paginationChange(links) {
+    let html = ``;
+    for (const link of links) {
+        if (link.active == false && link.label == '&laquo; Previous'){
+            html += `<a class="prev-arrow disabled"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>`
         }
-    })
+        if(link.active == true && link.label =='1'){
+            html+=`<a class="active" aria-current="page">${link.label}</a>`
+        }
+        if(link.active == true && link.label !='1'){
+            html+=`<a class="active" aria-current="page">${link.label}</a>`
+        }
+        if(link.active == false && parseInt(link.label) > 1 ){
+            html+=`<a href="${link.url}">${$link.label}</a>`
+        }
+        if(link.active == false && link.label == 'Next &raquo;' && link.url != null){
+            html+=`<a href="${link.url}" rel="next" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>`
+        }
+        if(link.active == false && link.label == 'Next &raquo;' && link.url == null){
+            html+=`<a class="next-arrow disabled"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>`
+        }
+    }
+
+
+    let divs = document.getElementsByClassName('pagination')
+    for (const div of divs) {
+        div.innerHTML = html
+    }
 }
 
 // async function fetchProducts() {
