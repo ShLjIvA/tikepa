@@ -32,12 +32,15 @@ Route::get('/cart', function (){
 })->name('cart');
 
 Route::get('/contact', [\App\Http\Controllers\ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [\App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
+
 
 Route::get('/shop', [\App\Http\Controllers\ShopController::class, 'index'])->name('shop');
 
 Route::get('/shop/{id}', [\App\Http\Controllers\ShopController::class, 'show'])->name('product');
 
 Route::post('/shop', [\App\Http\Controllers\ShopController::class, 'search'])->name('search');
+
 
 Route::middleware('isadmin')->group(function(){
     /* PAGES */
