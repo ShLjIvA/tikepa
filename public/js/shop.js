@@ -53,6 +53,17 @@ function priceUpdate(){
     fetchProducts();
 }
 
+// function paginationChange(response) {
+//     let html =
+//         `
+//
+//         `
+//     let divs = document.getElementsByClassName('pagination')
+//     for (const div of divs) {
+//
+//     }
+// }
+
 function fetchProducts(){
     $.ajax({
         url: 'api/articles',
