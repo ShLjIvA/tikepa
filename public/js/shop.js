@@ -1,18 +1,57 @@
+window.onload = function (){
+    if(window.location.pathname === '/shop') {
+        const search = document.getElementById('search_input')
+        search.addEventListener("keyup", searchUpdate);
+    }
+}
+
 const query = {};
+
+function searchUpdate(){
+    const search = document.getElementById('search_input')
+    query.search = search.value;
+
+    fetchProducts();
+}
 
 function sortUpdate() {
     const sort = document.getElementById('sort');
     query.sort = sort.value;
 
     fetchProducts();
-
 }
 
-// function brandUpdate(){
-//     const brands = document.getElementById('brands')
-//     query.brands = brands.value;
-//
-// }
+function brandUpdate(){
+    const brandId = document.querySelector('input[name="brand"]:checked');
+    query.brandId = brandId.value;
+
+    fetchProducts();
+}
+
+function categoryUpdate(){
+    const categoryId = document.querySelector('input[name="category"]:checked');
+    query.categoryId = categoryId.value;
+
+    fetchProducts();
+}
+
+function genderUpdate() {
+    const genderId = document.querySelector('input[name="gender"]:checked');
+    query.genderId = genderId.value;
+
+    fetchProducts();
+}
+
+function priceUpdate(){
+    let lower = document.getElementById('lower-value').innerText
+    let upper = document.getElementById('upper-value').innerText
+    console.log(typeof lower)
+    console.log(upper)
+    query.lower = lower
+    query.upper = upper
+
+    fetchProducts();
+}
 
 function fetchProducts(){
     $.ajax({
@@ -70,6 +109,9 @@ function fetchProducts(){
             </div>`;
             }
             div.innerHTML = html;
+        },
+        error: function (e){
+            console.log(e)
         }
     })
 }

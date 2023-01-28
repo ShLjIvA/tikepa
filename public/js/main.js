@@ -249,23 +249,23 @@ $(document).ready(function(){
     $(function(){
 
         if(document.getElementById("price-range")){
-
+        let lower = parseFloat(document.getElementById('lower').innerText)
+        let upper = parseFloat(document.getElementById('upper').innerText)
         var nonLinearSlider = document.getElementById('price-range');
 
         noUiSlider.create(nonLinearSlider, {
             connect: true,
             behaviour: 'tap',
-            start: [ 100, 300 ],
+            start: [ lower, upper ],
             range: {
                 // Starting at 500, step the value by 500,
                 // until 4000 is reached. From there, step by 1000.
-                'min': [ 0 ],
+                'min': [ lower ],
                 '10%': [ 1, 1 ],
                 '50%': [ 250, 1 ],
-                'max': [ 500 ]
+                'max': [ upper ]
             }
         });
-
 
         var nodes = [
             document.getElementById('lower-value'), // 0

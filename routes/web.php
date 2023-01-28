@@ -37,7 +37,7 @@ Route::get('/shop', [\App\Http\Controllers\ShopController::class, 'index'])->nam
 
 Route::get('/shop/{id}', [\App\Http\Controllers\ShopController::class, 'show'])->name('product');
 
-Route::post('/shop/search', [\App\Http\Controllers\ShopController::class, 'search'])->name('search');
+Route::post('/shop', [\App\Http\Controllers\ShopController::class, 'search'])->name('search');
 
 Route::middleware('isadmin')->group(function(){
     /* PAGES */

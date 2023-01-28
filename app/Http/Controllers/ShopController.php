@@ -17,8 +17,10 @@ class ShopController extends Controller
         $brands = Brand::all();
         $genders = Gender::all();
         $categories = Category::all();
+        $lower = Article::min('current_price');
+        $upper = Article::max('current_price');
 
-        return view('pages.shop', ["articles" => $articles, "categories" => $categories ,"brands" => $brands, "genders" => $genders]);
+        return view('pages.shop', ["articles" => $articles, "categories" => $categories ,"brands" => $brands, "genders" => $genders, "lower" => $lower, "upper" => $upper]);
     }
 
     public function show($id){
@@ -27,14 +29,10 @@ class ShopController extends Controller
     }
 
     public function search(Request $request){
+        $model = new Article();
 
-        $search = $request->input('search_input');
-
-        $articles = Article::orderByDesc('id')
-            ->where('name', 'LIKE', "%{$search}%")
-            ->orWhere('description', 'LIKE', "%{$search}%")
-            ->limit(6)
-            ->get();
+        $search = (object)['search' => $request->input('search_input')];
+        $articles = $model->search($search);
         $brands = Brand::all();
         $genders = Gender::all();
         $categories = Category::all();
@@ -51,7 +49,19 @@ class ShopController extends Controller
         $articles = $model->search($search);
 
         return $articles;
-
-
     }
+
+//    public function pricesApi(){
+//        $min = Article::orderBy('current_price')
+//            ->select('current_price')
+//            ->where('coming', '==', '0')
+//            ->first();
+//
+//        $max = Article::orderByDesc('current_price')
+//            ->select('current_price')
+//            ->where('coming', '==', '0')
+//            ->first();
+//
+//        return ['min'=>$min, 'max'=>$max];
+//    }
 }
