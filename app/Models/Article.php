@@ -29,6 +29,11 @@ class Article extends Model
             ->join('brands', 'articles.brand_id', '=', 'brands.id')
             ->select('articles.*', 'categories.name as categoryName', 'categories.id as categoryId', 'genders.gender as gender', 'brands.name as brandName');
 
+        if(property_exists($search, 'search')) {
+            $query->where('articles.name', 'LIKE', "%{$search->search}%");
+            $query->orWhere('articles.description', 'LIKE', "%{$search->search}%");
+        }
+
         if(property_exists($search, 'id')) {
             $query->where('articles.id', $search->id);
         }
@@ -50,6 +55,10 @@ class Article extends Model
 
         if(property_exists($search, 'sale')) {
             $query->whereNotNull('articles.sale_price');
+        }
+
+        if(property_exists($search, 'lower') && property_exists($search, 'upper') ) {
+            $query->whereBetween('articles.current_price', [$search->lower, $search->upper]);
         }
 
         if(property_exists($search, 'sort')) {
