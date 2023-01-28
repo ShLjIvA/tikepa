@@ -4,7 +4,7 @@
 
 @section('content')
 <div style="margin: 20px">
-<button type="button" class="btn btn-primary">Add new Category</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">Add new Category</button>
 </div>
 <div class="container-fluid">
     <div class="row">
@@ -23,8 +23,8 @@
                     <tr>
                     <th scope="row">{{$category->id}}</th>
                     <td>{{ $category->name }}</td>
-                    <td><button type="button" class="btn btn-success">Edit</button></td>
-                    <td><button type="button" class="btn btn-danger">Delete</button></td>
+                    <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#updateModal{{$category->id}}">Edit</button></td>
+                    <td><a href="{{ route('categories.delete', ['id' => $category->id]) }}"><button type="button" class="btn btn-danger">Delete</button></a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -32,6 +32,59 @@
         </div>
     </div>
 </div>
+@foreach ($categories as $category)
+<div class="modal fade" id="updateModal{{$category->id}}" tabindex="-1" aria-labelledby="modalLabel{{$category->id}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel{{$category->id}}">Update Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{route('categories.update', ['id' => $category->id])}}" method="post">
+            @csrf
+            <div class="form-group">
+                <label>Category Name</label>
+                <input type="text" class="form-control" name="category_name" placeholder="{{$category->name}}">
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endforeach
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="modalLabelCreate" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabelCreate">Create Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{route('categories.add')}}" method="post">`
+            @csrf
+            <div class="form-group">
+                <label>Category Name</label>
+                <input type="text" class="form-control" name="category_name" placeholder="Name of new category here">
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div style="margin: 20px">
 <nav aria-label="Page navigation example">
   <ul class="pagination">
@@ -48,5 +101,9 @@
   </ul>
 </nav>
 </div>
+
+@section('additionalScripts')
+    <script src="{{asset('js/admin/table.js')}}"></script>
+@endsection
 
 @endsection
