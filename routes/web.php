@@ -32,6 +32,9 @@ Route::get('/cart', [\App\Http\Controllers\CartController::class, 'index'])->nam
 Route::post("/cart", [\App\Http\Controllers\CartController::class, "add"])->name('add-to-cart');
 Route::get("/cart/{id}", [\App\Http\Controllers\CartController::class, "remove"])->name('remove-from-cart');
 
+Route::get('/checkout', [\App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout', [\App\Http\Controllers\CheckoutController::class, 'order'])->name('finish-order');
+
 Route::get('/forget', function (Request $request){
     if($request->session()->has('cartItems')){
         $request->session()->forget('cartItems');

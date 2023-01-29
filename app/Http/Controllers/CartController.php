@@ -14,6 +14,7 @@ class CartController extends Controller
             foreach ($cartItems as $item){
                 $subtotal += $item->product->current_price;
             }
+            session()->put('total', $subtotal);
         }
         return view('pages.cart', ['subtotal' => $subtotal]);
     }

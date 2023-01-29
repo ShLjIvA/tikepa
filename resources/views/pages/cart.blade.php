@@ -81,7 +81,7 @@
                                 <div class="checkout_btn_inner d-flex align-items-center">
                                     <a class="gray_btn" href="{{route('shop')}}">Continue Shopping</a>
                                     @if(session()->has('user'))
-                                        <button type="submit" class="primary-btn border-0" value="c">Proceed to checkout</button>
+                                        <a class="primary-btn" href="{{ route('checkout') }}">Proceed to checkout</a>
                                     @else
                                     <a class="primary-btn" href="{{ route('login') }}">Login to checkout</a>
                                     @endif
