@@ -33,6 +33,9 @@
       <li class="nav-item @if(request()->routeIs('orders')) active @endif">
         <a class="nav-link" href="/admin/orders">Orders @if(request()->routeIs('orders')) <span class="sr-only">(current)</span> @endif</a>
       </li>
+      <li class="nav-item @if(request()->routeIs('logs')) active @endif">
+        <a class="nav-link" href="/admin/logs">Logs @if(request()->routeIs('logs')) <span class="sr-only">(current)</span> @endif</a>
+      </li>
     </ul>
   </div>
 </nav>

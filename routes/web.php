@@ -88,6 +88,8 @@ Route::middleware('isadmin')->group(function(){
     Route::get('/admin/users', [\App\Http\Controllers\AdminController::class, 'users'])->name('users');
     Route::post('/admin/users/{id}', [\App\Http\Controllers\AdminController::class, 'updateUser'])->name('users.update');
     Route::get('/admin/users/delete/{id}', [\App\Http\Controllers\AdminController::class, 'deleteUser'])->name('users.delete');
+
+    Route::get('/admin/logs', [\App\Http\Controllers\AdminController::class, 'logs'])->name('logs');
 });
 
 

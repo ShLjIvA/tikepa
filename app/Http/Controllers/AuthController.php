@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Traits\Logging;
 
 class AuthController extends Controller
 {
+    use Logging;
     // Form
     public function index(){
         return view('pages.login');
@@ -26,6 +28,7 @@ class AuthController extends Controller
             }
             // User session
             $request->session()->put('user', $user);
+            $this->insertLog($user->id, 'Logged In', $request->getUri());
             if($request->session()->get('user')->admin){
                 return redirect()->route('admin');
             }
@@ -44,6 +47,8 @@ class AuthController extends Controller
     // Log out
     public function doLogout(Request $request){
         if($request->session()->has('user')){
+            $user = $request->session()->get('user');
+            $this->insertLog($user->id, 'Logged Out', $request->getUri());
             $request->session()->forget('user');
         }
         return redirect()->route('login');

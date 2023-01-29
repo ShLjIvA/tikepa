@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Traits\Logging;
 
 
 class RegisterController extends Controller
 {
+    use Logging;
+
     public function index(){
         return view('pages.register');
     }
@@ -22,7 +25,7 @@ class RegisterController extends Controller
  //       dd($validatedPassword);
         try {
             DB::beginTransaction();
-            DB::table('users')->insert([
+            $id = DB::table('users')->insertGetId([
                 'email' => $validatedEmail['emailRegister'],
                 'password' => $validatedPassword['passwordRegister'],
                 'first_name' => $validatedFirstName['firstName'],
@@ -30,6 +33,8 @@ class RegisterController extends Controller
                 'admin' => 0
             ]);
             DB::commit();
+            $this->insertLog($id, 'Registered', $request->getUri());
+
         }
         catch(Exception $e){
             DB::rollBack();

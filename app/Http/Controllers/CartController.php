@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use App\Traits\Logging;
 
 class CartController extends Controller
 {
+    use Logging;
     public function index(){
         $subtotal = 0.00;
         if(session()->has('cartItems')){
@@ -25,6 +27,11 @@ class CartController extends Controller
         $cartItems = session()->get('cartItems');
         if(!$cartItems){
             $cartItems = [];
+        }
+
+        if(session()->has('user')) {
+            $user = session()->get('user');
+            $this->insertLog($user->id, 'Add To Cart', $request->getUri());
         }
 
         $existingIndex = null;
@@ -56,7 +63,7 @@ class CartController extends Controller
         return true;
     }
 
-    public function remove($id){
+    public function remove(Request $request, $id){
         $existingIndex = null;
         if(session()->has('cartItems')) {
             $cartItems = session()->get('cartItems');
@@ -70,6 +77,11 @@ class CartController extends Controller
                 unset($cartItems[$existingIndex]);
                 session()->forget('carItems');
                 session()->put('carItems', $cartItems);
+            }
+
+            if(session()->has('user')) {
+                $user = session()->get('user');
+                $this->insertLog($user->id, 'Remove From Cart', $request->getUri());
             }
         }
 
