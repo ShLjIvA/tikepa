@@ -15,6 +15,7 @@ use App\Models\Link;
 use App\Models\ArticleGallery;
 use App\Models\ArticleSize;
 use App\Models\Size;
+use App\Models\Log;
 
 class AdminController extends Controller
 {
@@ -466,5 +467,24 @@ class AdminController extends Controller
         $user->forceDelete();
 
         return redirect()->route('users');
+    }
+
+    public function logs(Request $request) {
+        $model = new Log();
+        $search = (object)[];
+
+        if($request->start_date) {
+            $search->start_date = $request->start_date;
+        } 
+
+        if($request->end_date) {
+            $search->end_date = $request->end_date;
+        }
+
+        $logs = $model->search($search);
+
+
+
+        return view('admin.logs', ['logs' => $logs]);
     }
 }
