@@ -49,7 +49,12 @@ Route::middleware('isadmin')->group(function(){
     Route::get('/admin/articles', [\App\Http\Controllers\AdminController::class, 'articles'])->name('articles');
     Route::post('/admin/articles', [\App\Http\Controllers\AdminController::class, 'addArticle'])->name('articles.add');
     Route::get('/admin/article/{id}', [\App\Http\Controllers\AdminController::class, 'article'])->name('article');
+    Route::get('/admin/article/delete/{id}', [\App\Http\Controllers\AdminController::class, 'deleteArticle'])->name('articles.delete');
     Route::post('/admin/article/{id}', [\App\Http\Controllers\AdminController::class, 'updateArticle'])->name('articles.update');
+    Route::post('/admin/article/gallery/{id}', [\App\Http\Controllers\AdminController::class, 'addImage'])->name('articles.gallery.add');
+    Route::get('/admin/article/gallery/remove/{id}', [\App\Http\Controllers\AdminController::class, 'removeImage'])->name('articles.gallery.delete');
+    Route::post('/admin/article/size/{id}', [\App\Http\Controllers\AdminController::class, 'addSize'])->name('articles.size.add');
+    Route::get('/admin/article/size/{id}/{sizeId}', [\App\Http\Controllers\AdminController::class, 'removeSize'])->name('articles.size.delete');
 
     Route::get('/admin/brands', [\App\Http\Controllers\AdminController::class, 'brands'])->name('brands');
     Route::post('admin/brands/{id}', [\App\Http\Controllers\AdminController::class, 'updateBrand'])->name('brands.update');
@@ -74,6 +79,8 @@ Route::middleware('isadmin')->group(function(){
     Route::get('/admin/orders', [\App\Http\Controllers\AdminController::class, 'orders'])->name('orders');
 
     Route::get('/admin/users', [\App\Http\Controllers\AdminController::class, 'users'])->name('users');
+    Route::post('/admin/users/{id}', [\App\Http\Controllers\AdminController::class, 'updateUser'])->name('users.update');
+    Route::get('/admin/users/delete/{id}', [\App\Http\Controllers\AdminController::class, 'deleteUser'])->name('users.delete');
 });
 
 

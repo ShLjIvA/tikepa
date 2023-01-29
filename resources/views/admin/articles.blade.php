@@ -33,8 +33,8 @@
                     <td>{{ $article->categoryName }}</td>
                     <td>{{ $article->gender }}</td>
                     <td>{{ $article->price }}</td>
-                    <td><button type="button" class="btn btn-success">Edit</button></td>
-                    <td><button type="button" class="btn btn-danger">Delete</button></td>
+                    <td><a href="{{ route('article', ['id' => $article->id]) }}"><button type="button" class="btn btn-success">Edit</button></a></td>
+                    <td><a href="{{ route('articles.delete', ['id' => $article->id]) }}"><button type="button" class="btn btn-danger">Delete</button></a></td>
                     </tr>
                     @endforeach
                 </tbody>

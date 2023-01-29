@@ -11,4 +11,6 @@ class ArticleGallery extends Model
 
     protected $table = 'article_gallery';
 
+    public $timestamps = false;
+
 }
