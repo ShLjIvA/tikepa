@@ -97,9 +97,9 @@ function articleChange(response) {
                         </div>
                         <div class="prd-bottom">
 
-                            <a href="" class="social-info">
+                            <a href="shop/${article.id}" class="social-info">
                                 <span class="ti-bag"></span>
-                                <p class="hover-text">add to bag</p>
+                                <p class="hover-text">select size</p>
                             </a>
                             <a href="shop/${article.id}" class="social-info">
                                 <span class="lnr lnr-move"></span>
