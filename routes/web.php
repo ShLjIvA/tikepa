@@ -47,6 +47,9 @@ Route::middleware('isadmin')->group(function(){
     Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'articles'])->name('admin');
 
     Route::get('/admin/articles', [\App\Http\Controllers\AdminController::class, 'articles'])->name('articles');
+    Route::post('/admin/articles', [\App\Http\Controllers\AdminController::class, 'addArticle'])->name('articles.add');
+    Route::get('/admin/article/{id}', [\App\Http\Controllers\AdminController::class, 'article'])->name('article');
+    Route::post('/admin/article/{id}', [\App\Http\Controllers\AdminController::class, 'updateArticle'])->name('articles.update');
 
     Route::get('/admin/brands', [\App\Http\Controllers\AdminController::class, 'brands'])->name('brands');
     Route::post('admin/brands/{id}', [\App\Http\Controllers\AdminController::class, 'updateBrand'])->name('brands.update');
