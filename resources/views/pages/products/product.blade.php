@@ -13,9 +13,6 @@
 @endsection
 @section('content')
     <!--================Single Product Area =================-->
-    <div class="alert alert-success">
-        <strong>Success!</strong> Indicates a successful or positive action.
-    </div>
     <div class="product_image_area">
         <div class="container">
             <div class="row s_product_inner">
