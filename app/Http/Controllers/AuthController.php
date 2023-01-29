@@ -16,26 +16,24 @@ class AuthController extends Controller
     public function doLogin(LoginRequest $request){
         $email = $request->input('emailLogin');
         $password = md5($request->input('passwordLogin'));
-              //  dd($password);
 
         try {
             $user = DB::table('users')
-            //    ->join('roles', 'users.id_role', '=', 'roles.id')
                 ->where('email', '=', $email)
                 ->where('password', '=', $password)->first();
-            // dd($user);
             if(!$user){
                 return redirect()->back()->with('error-msg', 'Incorrect password or email address. Please try again wtih diffrent.');
             }
             // User session
             $request->session()->put('user', $user);
-            $request->session()->put('cartItems', []);
-//            dd($request->session()->get('user')->email);
             if($request->session()->get('user')->admin){
                 return redirect()->route('admin');
             }
             else {
-                return redirect()->back()->with('success-msg', "You've successfully logged in to your account.");
+                if(session()->has('cartItems') && count(session()->get('cartItems')))
+                    return redirect()->route('cart');
+                else
+                    return redirect()->route('home');
             }
         }
         catch(Exception $e){

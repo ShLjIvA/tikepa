@@ -46,9 +46,9 @@
                     @if(session('error-msg'))
                         <p class="success my-2">{{ session('error-msg') }}</p>
                     @endif
-                    @if(session('success-msg'))
-                        <p class="success my-2">{{ session('success-msg') }}</p>
-                    @endif
+{{--                    @if(session('success-msg'))--}}
+{{--                        <p class="success my-2">{{ session('success-msg') }}</p>--}}
+{{--                    @endif--}}
                 </div>
             </div>
         </div>

@@ -8,8 +8,14 @@
     <a href="{{ redirect(Request::url()) }}">{{ $product->name }}</a>
 @endsection
 
+@section('additionalScripts')
+    <script src="{{asset('js/cart.js')}}"></script>
+@endsection
 @section('content')
     <!--================Single Product Area =================-->
+    <div class="alert alert-success">
+        <strong>Success!</strong> Indicates a successful or positive action.
+    </div>
     <div class="product_image_area">
         <div class="container">
             <div class="row s_product_inner">
@@ -42,7 +48,7 @@
                                 <div class="sorting mr-auto">
                                     <select name="size" id="size">
                                         @foreach($product->sizes as $size)
-                                            <option value="{{$size->id}}">{{ $size->size }}</option>
+                                            <option value="{{$size->size}}">{{ $size->size }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -51,9 +57,13 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="card_area d-flex align-items-center">
-                            <a class="primary-btn" href="#">Add to Cart</a>
+                        @if(count($product->sizes))
+                        <div id="articleId" style="display: none">{{ $product->id }}</div>
+
+                        <div onclick="addToCart()" class="card_area d-flex align-items-center">
+                            <a id="addBtn" class="primary-btn" href="javascript:void(0)">Add to Cart</a>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
