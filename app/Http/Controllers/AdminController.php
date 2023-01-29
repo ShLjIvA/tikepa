@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Models\Article;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Gender;
 use App\Models\User;
 use App\Models\Link;
+use App\Models\ArticleGallery;
+use App\Models\ArticleSize;
+use App\Models\Size;
 
 class AdminController extends Controller
 {
@@ -51,7 +56,8 @@ class AdminController extends Controller
         $brands = Brand::all();
         $genders = Gender::all();
         $categories = Category::all();
-        return view('admin.article', ['article' => $article, 'brands' => $brands, 'genders' => $genders, 'categories' => $categories]);
+        $sizes = Size::all();
+        return view('admin.article', ['article' => $article, 'brands' => $brands, 'genders' => $genders, 'categories' => $categories, 'sizes' => $sizes]);
     }
 
     public function updateArticle(Request $request, $id) {
@@ -64,6 +70,12 @@ class AdminController extends Controller
         $description = $request->input('description');
         $price = $request->input('price');
         $sale_price = $request->input('sale_price');
+
+        if($request->file('image')) {
+            $image = time().'_tikepa'.'.'.$request->file('image')->extension();
+            $request->image->move(public_path('img/products/'), $image);
+            $article->image = 'img/products/'.$image;
+        }
 
         $article->name = $name;
         $article->brand_id = $brand;
@@ -102,6 +114,66 @@ class AdminController extends Controller
 
         return redirect()->route('articles');
 
+    }
+
+    public function deleteArticle(Request $request, $id) {
+        $article = Article::find($id);
+        $article->forceDelete();
+
+        return redirect()->route('articles');
+    }
+
+    public function addImage(Request $request, $id) {
+        if($request->file('image')) {
+            $path = time().'_tikepa'.'.'.$request->file('image')->extension();
+            $request->image->move(public_path('img/products/'), $path);
+            $image = new ArticleGallery();
+            $image->url = 'img/products/'.$path;
+            $image->article_id = $id;
+            $image->save();
+        }
+
+        return redirect('admin/article/'.$id);
+    }
+
+    public function removeImage(Request $request, $id) {
+        $image = ArticleGallery::find($id);
+        $article_id = $image->article_id;
+        $image->forceDelete();
+
+        return redirect('admin/article/'.$article_id);
+    }
+
+    public function addSize(Request $request, $id) {
+        if($request->input('size')) {
+            $size_id = $request->input('size');
+            $existingSize = DB::table('article_size')
+                ->where('size_id', '=', $size_id)
+                ->where('article_id', '=', $id)
+                ->first();
+            if($existingSize) {
+                return redirect('admin/article/'.$id);
+            }
+            
+            DB::table('article_size')->insert([
+                ['size_id' => $size_id, 'article_id' => $id] 
+            ]);
+
+        }
+
+        return redirect('admin/article/'.$id);
+    }
+
+    public function removeSize(Request $request, $id, $sizeId) {
+        var_dump($id);
+        var_dump($sizeId);
+        $existingSize = DB::table('article_size')
+                ->where('size_id', '=', $sizeId)
+                ->where('article_id', '=', $id)
+                ->delete();
+
+            return redirect('admin/article/'.$id);
+        
     }
 
     public function brands(Request $request) {
@@ -369,5 +441,30 @@ class AdminController extends Controller
         $users = $model->search($search);
         
         return view('admin.users', ['users' => $users, 'pagination' => $pagination, 'page' => $page]);
+    }
+
+    public function updateUser(Request $request, $id) {
+
+        $email = $request->input('email');
+        $first_name = $request->input('first_name');
+        $last_name = $request->input('last_name');
+        $admin = (int)$request->input('admin');
+
+        $user = User::find($id);
+        $user->email = $email;
+        $user->first_name = $first_name;
+        $user->last_name = $last_name;
+        $user->admin = $admin;
+
+        $user->save();
+
+        return redirect()->route('users');
+    }
+
+    public function deleteUser(Request $request, $id) {
+        $user = User::find($id);
+        $user->forceDelete();
+
+        return redirect()->route('users');
     }
 }

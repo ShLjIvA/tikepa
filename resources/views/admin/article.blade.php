@@ -106,7 +106,8 @@
     <div class="row">
         <div class="col">
             <h3>Add Image</h3>
-            <form>
+            <form action="{{route('articles.gallery.add', ['id' => $article->id])}}" method="post" enctype="multipart/form-data">
+                @csrf
                 <input type="file" name="image">
                 <button type="submit" class="btn btn-primary">Add Image</button>
             </form>
@@ -129,7 +130,7 @@
                     <th scope="row">{{$image->id}}</th>
                     <td><img width="70px" src="{{asset($image->url)}}" class="img-thumbnail"></td>
                     <td>{{ $image->url }}</td>
-                    <td><button type="button" class="btn btn-danger">Delete</button></td>
+                    <td><a href="{{ route('articles.gallery.delete', ['id' => $image->id]) }}"><button type="button" class="btn btn-danger">Delete</button></a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -145,7 +146,18 @@
         </div>
     </div>
     <div class="row">
-
+        <div class="col">
+            <h3>Add Size</h3>
+            <form action="{{route('articles.size.add', ['id' => $article->id])}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <select id="sizes" name="size" class="form-control">
+                    @foreach($sizes as $size)
+                        <option value="{{$size->id}}">{{ $size->size }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="btn btn-primary">Add Size</button>
+            </form>
+        </div>
     </div>
     <div class="row">
         <div class="col">
@@ -153,18 +165,16 @@
                 <thead>
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Image</th>
-                    <th scope="col">Url</th>
+                    <th scope="col">Size</th>
                     <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($article->gallery as $image)
+                    @foreach ($article->sizes as $size)
                     <tr>
-                    <th scope="row">{{$image->id}}</th>
-                    <td><img width="70px" src="{{asset($image->url)}}" class="img-thumbnail"></td>
-                    <td>{{ $image->url }}</td>
-                    <td><button type="button" class="btn btn-danger">Delete</button></td>
+                    <th scope="row">{{$size->id}}</th>
+                    <td>{{ $size->size }}</td>
+                    <td><a href="{{ route('articles.size.delete', ['id' => $article->id, 'sizeId' => $size->id]) }}"><button type="button" class="btn btn-danger">Delete</button></a></td>
                     </tr>
                     @endforeach
                 </tbody>
