@@ -16,6 +16,7 @@ use App\Models\ArticleGallery;
 use App\Models\ArticleSize;
 use App\Models\Size;
 use App\Models\Log;
+use App\Models\Order;
 
 class AdminController extends Controller
 {
@@ -417,7 +418,19 @@ class AdminController extends Controller
     }
 
     public function orders() {
-        return view('admin.orders');
+
+        $model = new Order();
+        $search = (object)[];
+
+        $orders = $model->search($search);
+
+        return view('admin.orders', ['orders' => $orders]);
+    }
+
+    public function show(Request $request, $id) {
+        $order = Order::find($id);
+
+        return view('admin.order', ['order' => $order]);
     }
 
     public function users(Request $request) {

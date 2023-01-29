@@ -17,6 +17,14 @@ class Article extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function brand() {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function gender() {
+        return $this->belongsTo(Gender::class);
+    }
+
     public function gallery(){
         return $this->hasMany(ArticleGallery::class);
     }

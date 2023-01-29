@@ -87,6 +87,7 @@ Route::middleware('isadmin')->group(function(){
     Route::get('/admin/links/delete/{id}', [\App\Http\Controllers\AdminController::class, 'deleteLink'])->name('links.delete');
 
     Route::get('/admin/orders', [\App\Http\Controllers\AdminController::class, 'orders'])->name('orders');
+    Route::get('/admin/orders/{id}', [\App\Http\Controllers\AdminController::class, 'show'])->name('orders.show');
 
     Route::get('/admin/users', [\App\Http\Controllers\AdminController::class, 'users'])->name('users');
     Route::post('/admin/users/{id}', [\App\Http\Controllers\AdminController::class, 'updateUser'])->name('users.update');
