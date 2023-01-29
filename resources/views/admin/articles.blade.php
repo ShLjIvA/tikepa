@@ -4,7 +4,7 @@
 
 @section('content')
 <div style="margin: 20px">
-<button type="button" class="btn btn-primary">Add new Article</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">Add new Article</button>
 </div>
 <div class="container-fluid">
     <div class="row">
@@ -41,6 +41,77 @@
             </table>
         </div>
     </div>
+</div>
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="modalLabelCreate" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabelCreate">Create Article</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{route('articles.add')}}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label>Article Name</label>
+                <input type="text" class="form-control" name="name" placeholder="Name of new article here">
+            </div>
+            <div class="form-group">
+                <label>Select Brand</label>
+                <select id="brands" name="brand" class="form-control">
+                    @foreach($brands as $brand)
+                    <option value="{{$brand->id}}">{{ $brand->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <div>
+                <label>Select Category</label>
+                </div>
+                <div>
+                <select id="categories" name="category" class="form-control">
+                    @foreach($categories as $category)
+                    <option value="{{$category->id}}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Select Gender</label>
+                <select id="genders" name="gender" class="form-control">
+                    @foreach($genders as $gender)
+                    <option value="{{$gender->id}}">{{ $gender->gender }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" class="form-control" name="description"> 
+            </div>
+            <div class="form-group">
+                <label>Image</label>
+                <input type="file" class="form-control-file" name="image"> 
+            </div>
+            <div class="form-group">
+                <label>Price</label>
+                <input type="number" class="form-control" name="price"> 
+            </div>
+            <div class="form-group">
+                <label>Sale Price</label>
+                <input type="number" class="form-control" name="sale_price"> 
+            </div>
+            
+            
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 <div style="margin: 20px">
 <nav aria-label="Page navigation example">

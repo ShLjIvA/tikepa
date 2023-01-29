@@ -37,8 +37,71 @@ class AdminController extends Controller
         $search->skip = ($page - 1)*10;
 
         $articles = $model->search($search);
+
+        $brands = Brand::all();
+        $genders = Gender::all();
+        $categories = Category::all();
         
-        return view('admin.articles', ['articles' => $articles, 'pagination' => $pagination, 'page' => $page]);
+        return view('admin.articles', ['articles' => $articles, 'pagination' => $pagination, 'page' => $page, 'brands' => $brands, 'genders' => $genders, 'categories' => $categories]);
+    }
+
+    public function article(Request $request, $id) {
+
+        $article = Article::find($id);
+        $brands = Brand::all();
+        $genders = Gender::all();
+        $categories = Category::all();
+        return view('admin.article', ['article' => $article, 'brands' => $brands, 'genders' => $genders, 'categories' => $categories]);
+    }
+
+    public function updateArticle(Request $request, $id) {
+        $article = Article::find($id);
+
+        $name = $request->input('name');
+        $brand = (int)$request->input('brand');
+        $category = (int)$request->input('category');
+        $gender = (int)$request->input('gender');
+        $description = $request->input('description');
+        $price = $request->input('price');
+        $sale_price = $request->input('sale_price');
+
+        $article->name = $name;
+        $article->brand_id = $brand;
+        $article->category_id = $category;
+        $article->gender_id = $gender;
+        $article->description = $description;
+        $article->price = $price;
+        $article->sale_price = $sale_price;
+
+        $article->save();
+
+        return redirect('admin/article/'.$id);
+    }
+
+    public function addArticle(Request $request) {
+        $name = $request->input('name');
+        $brand = $request->input('brand');
+        $category = $request->input('category');
+        $gender = $request->input('gender');
+        $description = $request->input('description');
+        $price = $request->input('price');
+        $sale_price = $request->input('sale_price');
+        $image = time().'_tikepa'.'.'.$request->file('image')->extension();
+        $request->image->move(public_path('img/products/'), $image);
+
+        $article = new Article();
+        $article->name = $name;
+        $article->brand_id = $brand;
+        $article->category_id = $category;
+        $article->gender_id = $gender;
+        $article->description = $description;
+        $article->price = $price;
+        $article->sale_price = $sale_price;
+        $article->image = 'img/products/'.$image;
+        $article->save();
+
+        return redirect()->route('articles');
+
     }
 
     public function brands(Request $request) {
