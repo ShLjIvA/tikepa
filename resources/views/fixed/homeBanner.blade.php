@@ -9,12 +9,7 @@
                         <div class="col-lg-5 col-md-6">
                             <div class="banner-content">
                                 <h1>Nike New <br>Collection!</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-                                <div class="add-bag d-flex align-items-center">
-                                    <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-                                    <span class="add-text text-uppercase">Add to Bag</span>
-                                </div>
+                                <p>Checkout latest collection from Nike. Impressive new designs with all of us fall in love</p>
                             </div>
                         </div>
                         <div class="col-lg-7">
@@ -28,12 +23,7 @@
                         <div class="col-lg-5">
                             <div class="banner-content">
                                 <h1>Nike New <br>Collection!</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-                                <div class="add-bag d-flex align-items-center">
-                                    <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-                                    <span class="add-text text-uppercase">Add to Bag</span>
-                                </div>
+                                <p>Checkout latest collection from Nike. Impressive new designs with all of us fall in love</p>
                             </div>
                         </div>
                         <div class="col-lg-7">
